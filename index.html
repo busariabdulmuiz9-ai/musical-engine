@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vybe Wears</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="vybe2.css">
+</head>
+<body>
+<nav>
+    <div class="logo">VYBE</div>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+    <div class="cart-icon" onclick="toggleCart()">
+    🛒 <span id="cart-count">0</span>
+</div>
+
+<div class="theme-toggle" onclick="toggleTheme()">🌙</div>
+</nav>
+
+<section id="home" class="hero reveal">
+    <div class="hero-content">
+        <h1>Redefining Street Luxury</h1>
+        <p>Premium Urban Fashion</p>
+        <button onclick="scrollToCollection()">Explore</button>
+    </div>
+</section>
+
+<section id="collection" class="collection">
+    <h2 class="reveal">Featured Pieces</h2>
+    <div class="products">
+
+        <div class="product reveal">
+            <img src="tshirt.jpg">
+            <h3>Signature Tee</h3>
+            <p>₦18,000</p>
+            <button onclick="addToCart('Signature Tee')">Add to Cart</button>
+            <button onclick="openModal('Signature Tee')">Quick View</button>
+        </div>
+
+        <div class="product reveal">
+            <img src="hoodie.jpg">
+            <h3>Oversized Hoodie</h3>
+            <p>₦35,000</p>
+            <button onclick="addToCart('Oversized Hoodie')">Add to Cart</button>
+            <button onclick="openModal('Oversized Hoodie')">Quick View</button>
+        </div>
+
+        <div class="product reveal">
+            <img src="cap.jpg">
+            <h3>Street Cap</h3>
+            <p>₦12,000</p>
+            <button onclick="addToCart('Street Cap')">Add to Cart</button>
+            <button onclick="openModal('Street Cap')">Quick View</button>
+        </div>
+
+    </div>
+</section>
+
+<section id="about" class="about reveal">
+    <h2>Our Philosophy</h2>
+    <p>We merge confidence, culture, and luxury into wearable art.</p>
+</section>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+        <h3>Your Cart</h3>
+        <span onclick="toggleCart()">✕</span>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-footer">
+        <a href="checkout.html">
+            <button>Checkout</button>
+            <button onclick="payWithPaystack()">Pay Now</button>
+        </a>
+    </div>
+</div>
+
+<div class="modal" id="productModal">
+    <div class="modal-content">
+        <h3 id="modalTitle"></h3>
+        <p>Premium quality fabric. Designed for confidence.</p>
+        <button onclick="closeModal()">Close</button>
+    </div>
+</div>
+<script src="vybe2.js"></script>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+function payWithPaystack() {
+  let handler = PaystackPop.setup({
+    key: "pk_test_94a6376f159c445be3cf6ab4eab2e4ad2538a67e", 
+    email: "vybeworldwide0@gmail.com",
+    amount: 500000, // amount in kobo (₦5,000 = 500000kobo)
+    currency: "NGN",
+    onClose: function(){
+      alert("Transaction was not completed!");
+    },
+    callback: function(response){
+      alert("Payment successful. Reference: " + response.reference);
+      // Here you can store reference to your server/database
+    }
+  });
+  handler.openIframe();
+}
+</script>
+</body>
+</html>
